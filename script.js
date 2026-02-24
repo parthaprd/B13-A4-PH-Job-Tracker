@@ -22,12 +22,12 @@ function setTab(tabName) {
 
   const tabButtons = document.querySelectorAll(".tab-btn");
   tabButtons.forEach(button => {
-    button.className = "tab-btn px-4 py-2 rounded-md text-sm font-medium border bg-white text-slate-700";
+    button.className = "tab-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium border bg-white text-slate-700";
   });
 
- 
+
   const activeButton = document.getElementById(`tab-${tabName.toLowerCase()}`);
-  activeButton.className = "tab-btn px-4 py-2 rounded-md text-sm font-medium bg-blue-500 text-white";
+  activeButton.className = "tab-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium bg-blue-500 text-white";
 
   render();
 }
@@ -36,7 +36,7 @@ function setTab(tabName) {
 function updateStatus(jobId, newStatus) {
   jobs = jobs.map(job => {
     if (job.id === jobId) {
- 
+
       return job.status === newStatus ? { ...job, status: "ALL" } : { ...job, status: newStatus };
     }
     return job;
@@ -78,34 +78,32 @@ function render() {
     const badgeText = job.status === "ALL" ? "NOT APPLIED" : job.status;
     const badgeColor =
       job.status === "INTERVIEW" ? "bg-green-100 text-green-700" :
-      job.status === "REJECTED" ? "bg-red-100 text-red-700" :
-      "bg-slate-100 text-slate-700";
+        job.status === "REJECTED" ? "bg-red-100 text-red-700" :
+          "bg-slate-100 text-slate-700";
 
     jobList.innerHTML += `
-      <div class="bg-white border rounded-xl p-6 relative">
-        <button onclick="deleteJob(${job.id})" class="absolute top-4 right-4 text-slate-400 hover:text-red-500">
+      <div class="job-card bg-white border rounded-xl p-4 sm:p-6 relative">
+        <button onclick="deleteJob(${job.id})" class="absolute top-3 right-3 sm:top-4 sm:right-4 text-slate-400 hover:text-red-500 text-sm sm:text-base">
           <i class="fa-regular fa-trash-can"></i>
         </button>
 
-        <h3 class="text-lg font-semibold text-slate-900">${job.company}</h3>
-        <p class="text-slate-600">${job.role}</p>
-        <p class="text-sm text-slate-500 mt-2">${job.location} • ${job.type} • ${job.salary}</p>
+        <h3 class="text-base sm:text-lg font-semibold text-slate-900">${job.company}</h3>
+        <p class="job-role text-sm sm:text-base text-slate-600">${job.role}</p>
+        <p class="job-meta text-xs sm:text-sm text-slate-500 mt-1 sm:mt-2">${job.location} • ${job.type} • ${job.salary}</p>
 
-        <span class="inline-block mt-3 px-3 py-1 text-xs rounded ${badgeColor}">${badgeText}</span>
-        <p class="text-sm text-slate-600 mt-3">${job.description}</p>
+        <span class="inline-block mt-2 sm:mt-3 px-2 sm:px-3 py-0.5 sm:py-1 text-xs rounded ${badgeColor}">${badgeText}</span>
+        <p class="job-desc text-xs sm:text-sm text-slate-600 mt-2 sm:mt-3">${job.description}</p>
 
-        <div class="flex gap-3 mt-5">
-          <button onclick="updateStatus(${job.id}, 'INTERVIEW')" class="px-4 py-2 rounded border ${
-            job.status === 'INTERVIEW' ? 'bg-green-500 text-white' : 'text-green-600 border-green-500 hover:bg-green-50'
-          }">INTERVIEW</button>
+        <div class="flex gap-2 sm:gap-3 mt-3 sm:mt-5">
+          <button onclick="updateStatus(${job.id}, 'INTERVIEW')" class="action-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded border text-xs sm:text-sm ${job.status === 'INTERVIEW' ? 'bg-green-500 text-white' : 'text-green-600 border-green-500 hover:bg-green-50'
+      }">INTERVIEW</button>
 
-          <button onclick="updateStatus(${job.id}, 'REJECTED')" class="px-4 py-2 rounded border ${
-            job.status === 'REJECTED' ? 'bg-red-500 text-white' : 'text-red-600 border-red-500 hover:bg-red-50'
-          }">REJECTED</button>
+          <button onclick="updateStatus(${job.id}, 'REJECTED')" class="action-btn px-3 sm:px-4 py-1.5 sm:py-2 rounded border text-xs sm:text-sm ${job.status === 'REJECTED' ? 'bg-red-500 text-white' : 'text-red-600 border-red-500 hover:bg-red-50'
+      }">REJECTED</button>
         </div>
       </div>
     `;
   });
 }
 
-  setTab('ALL'); 
+setTab('ALL'); 
